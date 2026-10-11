@@ -86,21 +86,97 @@ public class Meowifier {
         " *stretches*",
         " *tilts head*",
         " *blushes*",
-        " *pounces*"
+        " *pounces*",
+        " *wiggles tail*",
+        " *licks paw*",
+        " *kneads biscuits*",
+        " *boops snoot*",
+        " *perks ears up*",
+        " *snuggles*",
+        " *slow blinks*",
+        " *headbutts affectionately*"
     };
 
     private static final String[] FURRY_KAOMOJI = {
+        // Classic & Cat kaomoji
         " :3",
+        " :3c",
+        " >:3",
+        " >:3c",
+        " ;3",
+        " (=^･ω･^=)",
+        " (=^-ω-^=)",
+        " (=^‥^=)",
+        " (=^.^=)",
+        " (=^w^=)",
+        " (=^・^=)",
+        " (=^o^=)",
+        " ( =①ω①= )",
+        " ( ^..^)",
+        " (^._.^)~",
+        " (^-人-^)",
+
+        // Cute anime / Furry expressions
         " >w<",
+        " ^w^",
         " owo",
         " uwu",
-        " ^w^",
+        " OwO",
+        " UwU",
+        " *w*",
+        " ~w~",
+        " ^-^",
+        " ^.^",
+        " o3o",
+        " u3u",
+        " (>w<)",
+        " (^w^)",
+        " (U^w^U)",
+
+        // Playful, blushing, and silly
         " rawr x3",
-        " (=^･ω･^=)",
-        " nya~",
+        " x3",
+        " X3",
+        " >///<",
+        " >_<",
         " ;w;",
         " TwT",
-        " x3"
+        " qwq",
+        " QwQ",
+        " nya~",
+        " nyaa~ :3",
+        " mrrow~ :3",
+        " (◡‿◡✿)",
+        " (´｡• ω •｡`)",
+        " (｡♥‿♥｡)"
+    };
+
+    private static final String[] EXCLAMATION_EMOTES = {
+        "~!! >w<",
+        "! :3",
+        "! :3c",
+        "~!! ^w^",
+        "! rawr x3",
+        "! (=^･ω･^=)",
+        "! nya~",
+        "~!! >:3",
+        "! OwO",
+        "! >///<",
+        "~!! x3",
+        "! (=^w^=)"
+    };
+
+    private static final String[] QUESTION_EMOTES = {
+        "? owo?",
+        "? mew?",
+        "? :3?",
+        "? :3c?",
+        "? >w<?",
+        "? UwU?",
+        "? nya?",
+        "? (=^･ω･^=)?",
+        "? ;w;?",
+        "? ( ^..^)?"
     };
 
     private static final String[] SUFFIX_SOUNDS = {
@@ -109,8 +185,20 @@ public class Meowifier {
         " ~ purr~",
         " ~ mrrow!",
         " :3",
+        " :3c",
+        " >:3",
         " (=^･ω･^=)",
-        " ~ mew!"
+        " (=^-ω-^=)",
+        " (=^w^=)",
+        " >w<",
+        " ^w^",
+        " owo",
+        " uwu",
+        " OwO",
+        " rawr x3",
+        " ~ mew!",
+        " ( ^..^)",
+        " >///<"
     };
 
     private static final Pattern URL_PATTERN = Pattern.compile("https?://\\S+");
@@ -227,9 +315,9 @@ public class Meowifier {
                 // Punctuation transformation
                 String punct = token;
                 if (punct.contains("!")) {
-                    punct = punct.replace("!", RANDOM.nextDouble() < 0.5 ? "~!! >w<" : "! :3");
+                    punct = punct.replace("!", RANDOM.nextDouble() < 0.65 ? EXCLAMATION_EMOTES[RANDOM.nextInt(EXCLAMATION_EMOTES.length)] : "!");
                 } else if (punct.contains("?")) {
-                    punct = punct.replace("?", RANDOM.nextDouble() < 0.5 ? "? owo?" : "? mew?");
+                    punct = punct.replace("?", RANDOM.nextDouble() < 0.65 ? QUESTION_EMOTES[RANDOM.nextInt(QUESTION_EMOTES.length)] : "?");
                 }
                 sb.append(punct);
             }
@@ -285,8 +373,12 @@ public class Meowifier {
 
     private static boolean hasEmote(String text) {
         return text.contains(":3") || text.contains("owo") || text.contains("uwu")
-                || text.contains(">w<") || text.contains("^w^") || text.contains("(=^･ω･^=)")
-                || text.contains("rawr") || text.contains("*");
+                || text.contains("OwO") || text.contains("UwU") || text.contains(">w<")
+                || text.contains("^w^") || text.contains("(=^") || text.contains("rawr")
+                || text.contains("*w*") || text.contains("~w~") || text.contains(">///<")
+                || text.contains(";w;") || text.contains("TwT") || text.contains("qwq")
+                || text.contains("QwQ") || text.contains("(^") || text.contains("x3")
+                || text.contains("*");
     }
 
     /**
