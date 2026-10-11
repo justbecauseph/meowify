@@ -38,8 +38,14 @@ public class MeowifyCommand {
                     })
                 )
                 .then(Commands.literal("mode")
-                    .then(Commands.literal("full")
-                        .executes(ctx -> setMode(ctx.getSource(), MeowifyMode.FULL))
+                    .then(Commands.literal("furry")
+                        .executes(ctx -> setMode(ctx.getSource(), MeowifyMode.FURRY))
+                    )
+                    .then(Commands.literal("uwu")
+                        .executes(ctx -> setMode(ctx.getSource(), MeowifyMode.FURRY))
+                    )
+                    .then(Commands.literal("meow")
+                        .executes(ctx -> setMode(ctx.getSource(), MeowifyMode.MEOW))
                     )
                     .then(Commands.literal("puns")
                         .executes(ctx -> setMode(ctx.getSource(), MeowifyMode.PUNS))
@@ -152,7 +158,7 @@ public class MeowifyCommand {
                 .withStyle(ChatFormatting.YELLOW), false);
         source.sendSuccess(() -> Component.literal("  /meowify toggle  - Toggle on/off")
                 .withStyle(ChatFormatting.GRAY), false);
-        source.sendSuccess(() -> Component.literal("  /meowify mode <full|puns|suffix>  - Change mode")
+        source.sendSuccess(() -> Component.literal("  /meowify mode <furry|meow|puns|suffix>  - Change mode")
                 .withStyle(ChatFormatting.GRAY), false);
         source.sendSuccess(() -> Component.literal("  /meowify sound  - Toggle sound effect")
                 .withStyle(ChatFormatting.GRAY), false);

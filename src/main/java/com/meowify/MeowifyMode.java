@@ -1,7 +1,8 @@
 package com.meowify;
 
 public enum MeowifyMode {
-    FULL("Full Meow"),
+    FURRY("Full Furry (UwU)"),
+    MEOW("Pure Meow"),
     PUNS("Cat Puns"),
     SUFFIX("Cat Suffixes");
 
@@ -21,6 +22,9 @@ public enum MeowifyMode {
                 return mode;
             }
         }
-        return FULL;
+        if ("uwu".equalsIgnoreCase(name) || "full".equalsIgnoreCase(name)) {
+            return FURRY;
+        }
+        return FURRY;
     }
 }

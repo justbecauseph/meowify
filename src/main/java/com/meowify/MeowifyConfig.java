@@ -23,8 +23,8 @@ public class MeowifyConfig {
                 .define("enabled", true);
 
         MODE = builder
-                .comment("Meowification mode: FULL (all words meowed), PUNS (cat puns), SUFFIX (appends meows to messages).")
-                .defineEnum("mode", MeowifyMode.FULL);
+                .comment("Meowification mode: FURRY (Create: Estrogen-style full furry/uwu), MEOW (pure cat sounds), PUNS (cat puns), SUFFIX (appends meows to messages).")
+                .defineEnum("mode", MeowifyMode.FURRY);
 
         PLAY_CAT_SOUND = builder
                 .comment("Play a cat sound on client when sending chat messages.")

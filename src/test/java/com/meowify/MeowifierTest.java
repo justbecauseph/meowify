@@ -7,55 +7,58 @@ public class MeowifierTest {
 
     @Test
     public void testNullAndEmpty() {
-        assertNull(Meowifier.meowify(null, MeowifyMode.FULL, true, false, false));
-        assertEquals("", Meowifier.meowify("", MeowifyMode.FULL, true, false, false));
-        assertEquals("   ", Meowifier.meowify("   ", MeowifyMode.FULL, true, false, false));
+        assertNull(Meowifier.meowify(null, MeowifyMode.FURRY, true, false, false));
+        assertEquals("", Meowifier.meowify("", MeowifyMode.FURRY, true, false, false));
+        assertEquals("   ", Meowifier.meowify("   ", MeowifyMode.FURRY, true, false, false));
     }
 
     @Test
-    public void testFullModePreservesPunctuationAndSpacing() {
+    public void testFurryModeTransformsPhoneticsAndVocabulary() {
+        String input = "Hello world! I am looking for diamonds right now.";
+        String result = Meowifier.meowify(input, MeowifyMode.FURRY, true, false, false);
+
+        assertNotNull(result);
+        // "Hello" should become "Hewwo" (or with stutter "H-Hewwo")
+        assertTrue(result.toLowerCase().contains("hewwo"));
+        // "right now" should become "right meow" (or "wight meow")
+        assertTrue(result.toLowerCase().contains("meow"));
+        // "looking" should turn 'l' into 'w' -> "wooking"
+        assertTrue(result.toLowerCase().contains("wooking"));
+        // Should contain cat/furry emotes or actions
+        assertTrue(result.contains(":3") || result.contains("owo") || result.contains("uwu")
+                || result.contains(">w<") || result.contains("^w^") || result.contains("*")
+                || result.contains("nya"));
+    }
+
+    @Test
+    public void testFurryModePreservesUrls() {
+        String input = "Check this rule at https://minecraft.net/rules right now";
+        String result = Meowifier.meowify(input, MeowifyMode.FURRY, true, false, false);
+
+        assertTrue(result.contains("https://minecraft.net/rules"));
+        assertTrue(result.toLowerCase().contains("meow"));
+    }
+
+    @Test
+    public void testFurryModePreservesNumbers() {
+        String input = "Coords: 100 64 -200";
+        String withPreserve = Meowifier.meowify(input, MeowifyMode.FURRY, true, true, false);
+
+        assertTrue(withPreserve.contains("100"));
+        assertTrue(withPreserve.contains("64"));
+        assertTrue(withPreserve.contains("200"));
+    }
+
+    @Test
+    public void testPureMeowModePreservesPunctuationAndSpacing() {
         String input = "Hello, world! How are you?";
-        String result = Meowifier.meowify(input, MeowifyMode.FULL, true, false, false);
-        
+        String result = Meowifier.meowify(input, MeowifyMode.MEOW, true, false, false);
+
         assertNotNull(result);
         assertTrue(result.contains(", "));
         assertTrue(result.contains("! "));
         assertTrue(result.endsWith("?"));
         assertEquals(input.split("\\s+").length, result.split("\\s+").length);
-    }
-
-    @Test
-    public void testFullModePreservesCasing() {
-        String upper = "HELLO";
-        String title = "Hello";
-        String lower = "hello";
-
-        String upperResult = Meowifier.meowify(upper, MeowifyMode.FULL, true, false, false);
-        String titleResult = Meowifier.meowify(title, MeowifyMode.FULL, true, false, false);
-        String lowerResult = Meowifier.meowify(lower, MeowifyMode.FULL, true, false, false);
-
-        assertEquals(upperResult, upperResult.toUpperCase());
-        assertTrue(Character.isUpperCase(titleResult.charAt(0)));
-        assertTrue(Character.isLowerCase(titleResult.charAt(1)));
-        assertEquals(lowerResult, lowerResult.toLowerCase());
-    }
-
-    @Test
-    public void testPreserveUrls() {
-        String input = "Check this out https://minecraft.net and see!";
-        String result = Meowifier.meowify(input, MeowifyMode.FULL, true, false, false);
-
-        assertTrue(result.contains("https://minecraft.net"));
-    }
-
-    @Test
-    public void testPreserveNumbers() {
-        String input = "Coords: 100 64 -200";
-        String withPreserve = Meowifier.meowify(input, MeowifyMode.FULL, true, true, false);
-        
-        assertTrue(withPreserve.contains("100"));
-        assertTrue(withPreserve.contains("64"));
-        assertTrue(withPreserve.contains("200"));
     }
 
     @Test
@@ -79,8 +82,8 @@ public class MeowifierTest {
     @Test
     public void testAppendCatFace() {
         String input = "Hello";
-        String result = Meowifier.meowify(input, MeowifyMode.FULL, true, false, true);
+        String result = Meowifier.meowify(input, MeowifyMode.FURRY, true, false, true);
 
-        assertTrue(result.contains(":3"));
+        assertTrue(result.endsWith(":3"));
     }
 }
